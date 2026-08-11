@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volio Tech — Software you want, systems you love</title>
+<meta name="description" content="Volio Tech builds elegant, custom software inspired by the Italian word volio — I want, I love. Thoughtful systems for businesses in Bangladesh and worldwide.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#081a2f; --ink-2:#0d305a; --ink-3:#123f7a;
+  --gold:#42c0ff; --gold-soft:#9ddcff; --gold-deep:#1f72b5;
+  --paper:#F4F8FF; --paper-2:#FFFFFF;
+  --line-d:rgba(66,192,255,.12); --line-l:#d7e6f7;
+  --tx:#10273f; --tx-mut:#4d6c8c;
+  --on-d:#eff7ff; --on-d-mut:#8fa9c8;
+  --wrap:1160px;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  --disp:"Archivo",var(--sans);
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif:"IBM Plex Serif",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{font-family:var(--sans);color:var(--tx);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.skip{position:absolute;left:-999px;top:0;background:var(--gold);color:var(--ink);padding:10px 16px;font-weight:600;z-index:100}
+.skip:focus{left:12px;top:12px}
+
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-deep);display:inline-flex;align-items:center;gap:12px}
+.eyebrow.on-dark{color:var(--gold)}
+.eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.6}
+.h-sec{font-family:var(--disp);font-weight:800;letter-spacing:-.02em;line-height:1.04;font-size:clamp(30px,4.4vw,50px)}
+.lede{font-size:clamp(17px,2vw,20px);color:var(--tx-mut);max-width:60ch}
+.on-dark .lede,.lede.on-dark{color:var(--on-d)}
+
+header{position:sticky;top:0;z-index:50;background:rgba(8,26,50,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-d)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:13px;color:var(--gold);perspective:900px}
+.brand svg{width:34px;height:34px;filter:drop-shadow(0 18px 45px rgba(0,34,70,.24));transform:rotateX(14deg) rotateY(-6deg);transform-origin:center;animation:logo-rotate 18s ease-in-out infinite alternate}
+.brand .wm{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.01em;color:#fff;line-height:1;text-shadow:0 1px 5px rgba(0,0,0,.24);}
+.brand .wm small{display:block;font-family:var(--mono);font-weight:500;font-size:9.5px;letter-spacing:.34em;color:var(--gold);margin-top:3px}
+#mark-grad stop:nth-child(1){animation:logo-pulse-1 6s ease-in-out infinite}
+#mark-grad stop:nth-child(2){animation:logo-pulse-2 6s ease-in-out infinite}
+#mark-grad stop:nth-child(3){animation:logo-pulse-3 6s ease-in-out infinite}
+.menu{display:flex;align-items:center;gap:30px}
+.menu a{font-size:14.5px;color:var(--on-d);font-weight:500;transition:color .2s}
+.menu a:hover{color:#fff}
+.btn{font-family:var(--sans);font-weight:600;font-size:14.5px;padding:11px 20px;border-radius:4px;border:1px solid transparent;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:9px}
+.btn-gold{background:var(--gold);color:var(--ink);box-shadow:0 18px 40px rgba(66,192,255,.16)}
+.btn-gold:hover{background:var(--gold-soft)}
+.btn-ghost{background:transparent;color:#fff;border-color:var(--line-d)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+.navtoggle{display:none;background:none;border:1px solid var(--line-d);border-radius:2px;padding:9px 11px;cursor:pointer}
+.navtoggle span{display:block;width:20px;height:2px;background:#fff;margin:4px 0}
+
+.hero{position:relative;background:radial-gradient(120% 100% at 78% 8%,#1b4f8a 0%,var(--ink) 45%,#041627 100%);color:#fff;overflow:hidden;perspective:1300px}
+.hero::before{content:"";position:absolute;left:50%;top:20%;width:620px;height:620px;background:radial-gradient(circle,rgba(66,192,255,.15),transparent 52%);transform:translateX(-50%);pointer-events:none;opacity:.7;animation:hero-glow 14s ease-in-out infinite alternate}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+.hero .constellation{position:absolute;top:0;right:-40px;width:min(560px,52vw);opacity:.5;color:var(--gold);pointer-events:none;animation:float-alt 22s linear infinite}
+.hero-inner{position:relative;z-index:2;padding:clamp(60px,10vw,120px) 0 clamp(54px,7vw,92px);max-width:850px;transform-style:preserve-3d;transform-origin:center}
+.hero h1{font-family:var(--disp);font-weight:800;letter-spacing:-.03em;line-height:.98;font-size:clamp(42px,7.2vw,82px);margin:22px 0 0;text-shadow:0 20px 50px rgba(0,40,100,.2);transform:translateZ(18px) rotateX(3deg);animation:float 12s ease-in-out infinite alternate}
+.hero h1 .glow{color:var(--gold);text-shadow:0 0 45px rgba(66,192,255,.55);transform:translateZ(32px);display:inline-block}
+.hero p.sub{margin:26px 0 0;font-size:clamp(17px,2.1vw,21px);color:var(--on-d);max-width:62ch;transform:translateZ(12px);animation:float 13s ease-in-out infinite alternate-reverse}
+.meaning{margin-top:30px;display:inline-flex;align-items:center;gap:14px;padding:14px 20px;border:1px solid rgba(66,192,255,.24);border-radius:12px;background:rgba(255,255,255,.06);backdrop-filter:blur(5px);box-shadow:0 20px 60px rgba(3,20,55,.08);transform:translateZ(8px);animation:float 15s ease-in-out infinite alternate}
+.hero-cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px;transform:translateZ(10px);animation:float 14s ease-in-out infinite alternate-reverse}
+@keyframes float{0%{transform:translateZ(12px) translateY(0px)}50%{transform:translateZ(18px) translateY(-4px)}100%{transform:translateZ(12px) translateY(0px)}}
+@keyframes float-alt{0%{transform:translate(0,0)}50%{transform:translate(-12px,8px)}100%{transform:translate(0,0)}}
+@keyframes hero-glow{0%{opacity:.75;transform:translateX(-50%) scale(1)}100%{opacity:.95;transform:translateX(-50%) scale(1.04)}}
+@keyframes logo-rotate{0%{transform:rotateX(14deg) rotateY(-6deg)}100%{transform:rotateX(10deg) rotateY(6deg)}}
+@keyframes logo-pulse-1{0%,100%{stop-color:#57c4ff}50%{stop-color:#79d6ff}}
+@keyframes logo-pulse-2{0%,100%{stop-color:#0d66d1}50%{stop-color:#3a8af3}}
+@keyframes logo-pulse-3{0%,100%{stop-color:#0b3c88}50%{stop-color:#215cb3}}
+.meaning .ar{font-family:var(--serif);font-size:26px;color:var(--gold);line-height:1}
+.meaning .txt{font-family:var(--serif);font-style:italic;font-size:15.5px;color:var(--on-d)}
+.hero-cta{margin-top:36px;display:flex;flex-wrap:wrap;gap:14px}
+.hero-foot{position:relative;z-index:2;border-top:1px solid var(--line-d);display:grid;grid-template-columns:repeat(4,1fr)}
+.hero-foot div{padding:20px 4px 22px}
+.hero-foot .k{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--on-d-mut)}
+.hero-foot .v{font-family:var(--disp);font-weight:700;font-size:clamp(14px,1.7vw,17px);color:#fff;margin-top:6px;letter-spacing:-.01em}
+
+section{padding:clamp(64px,9vw,108px) 0}
+.sec-head{max-width:66ch}
+.sec-head .h-sec{margin-top:16px}
+.sec-head p{margin-top:18px}
+
+.fit{background:var(--paper)}
+.fit .sec-head .h-sec{max-width:20ch}
+.fit-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.fit-card{padding:36px 32px 38px;border-radius:18px;border:1px solid var(--line-l);background:var(--paper-2);box-shadow:0 20px 60px rgba(16,39,63,.08);transition:transform .3s,box-shadow .3s}
+.fit-card:hover{transform:translateY(-4px);box-shadow:0 30px 75px rgba(16,39,63,.12)}
+.fit-card.us{background:linear-gradient(180deg,var(--ink-2),var(--ink));border-color:transparent;color:#fff;position:relative;overflow:hidden}
+.fit-card.us .constellation{position:absolute;right:-40px;bottom:-50px;width:220px;opacity:.22;color:var(--gold)}
+.fit-card .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase}
+.fit-card.them .cap{color:var(--tx-mut)}
+.fit-card.us .cap{color:var(--gold)}
+.fit-card h3{font-family:var(--disp);font-weight:700;font-size:23px;letter-spacing:-.01em;margin:12px 0 22px}
+.fit-card.us h3{color:#fff}
+.fit-list{list-style:none;display:flex;flex-direction:column;gap:16px}
+.fit-list li{position:relative;padding-left:30px;font-size:15px}
+.fit-card.them .fit-list li{color:var(--tx-mut)}
+.fit-card.us .fit-list li{color:var(--on-d)}
+.fit-list li .m{position:absolute;left:0;top:2px;font-family:var(--mono);font-weight:600}
+.fit-card.them .m{color:#B7C1CB}
+.fit-card.us .m{color:var(--gold)}
+.fit-note{margin-top:28px;padding:20px 24px;border-left:2px solid var(--gold);background:var(--paper-2);border-radius:0 4px 4px 0;font-size:15px;color:var(--tx)}
+.fit-note b{font-weight:600}
+
+.services{background:var(--paper-2)}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-l);border:1px solid var(--line-l);margin-top:52px}
+.svc{background:var(--paper-2);padding:34px 30px 38px;position:relative;transition:.3s;box-shadow:0 18px 45px rgba(16,39,63,.06);border-radius:18px}
+.svc:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(16,39,63,.12);background:#f6faff}
+.svc .no{font-family:var(--mono);font-size:12px;color:var(--gold-deep);letter-spacing:.1em}
+.svc h3{font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:-.01em;margin:16px 0 10px}
+.svc p{font-size:14.5px;color:var(--tx-mut)}
+.svc .star{position:absolute;top:32px;right:28px;width:16px;height:16px;color:var(--gold);opacity:.85}
+
+.industries{background:var(--ink-2);color:#fff}
+.ind-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
+.ind{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-d);border-radius:40px;padding:11px 18px;font-size:14.5px;color:var(--on-d);transition:.2s}
+.ind:hover{border-color:var(--gold);color:#fff}
+.ind .s{width:11px;height:11px;background:var(--gold);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+.ind-note{margin-top:30px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--gold-soft)}
+
+.process{background:var(--paper)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-l);border:1px solid var(--line-l);margin-top:52px}
+.step{background:var(--paper-2);padding:32px 26px 34px}
+.step .n{font-family:var(--disp);font-weight:800;font-size:34px;color:var(--line-l);line-height:1;letter-spacing:-.02em}
+.step .n b{color:var(--gold)}
+.step h4{font-family:var(--disp);font-weight:700;font-size:18px;margin:14px 0 9px;letter-spacing:-.01em}
+.step p{font-size:14px;color:var(--tx-mut)}
+
+.approach{background:var(--ink-2);color:#fff}
+.approach .grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:clamp(40px,6vw,84px);align-items:start}
+.pillars{display:flex;flex-direction:column;gap:2px}
+.pillar{border-top:1px solid var(--line-d);padding:26px 0;display:grid;grid-template-columns:52px 1fr;gap:20px;align-items:start}
+.pillar:last-child{border-bottom:1px solid var(--line-d)}
+.pillar .idx{font-family:var(--mono);font-size:13px;color:var(--gold);padding-top:3px}
+.pillar h4{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em}
+.pillar p{font-size:14.5px;color:var(--on-d);margin-top:7px}
+
+.story{background:linear-gradient(180deg,#04101c,#081a2b);color:#fff;position:relative;overflow:hidden}
+.story .constellation{position:absolute;left:50%;top:8%;transform:translateX(-50%);width:min(720px,90vw);opacity:.16;color:var(--gold);pointer-events:none}
+.story-inner{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center}
+.story .quote{font-family:var(--serif);font-weight:400;font-size:clamp(23px,3.4vw,36px);line-height:1.32;letter-spacing:-.01em;margin:26px 0 0}
+.story .quote b{color:var(--gold);font-weight:500}
+.story .ar-big{font-family:var(--serif);font-size:clamp(44px,8vw,74px);color:var(--gold);line-height:1;margin-bottom:6px}
+.story p.body{margin:28px auto 0;color:var(--on-d);font-size:16px;max-width:60ch}
+
+.ways{background:var(--paper-2)}
+.ways-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+.way{border:1px solid var(--line-l);border-top:3px solid var(--gold);background:var(--paper-2);padding:34px 30px 36px;border-radius:18px;box-shadow:0 20px 60px rgba(16,39,63,.06);transition:transform .3s}
+.way:hover{transform:translateY(-4px)}
+.way .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep)}
+.way h3{font-family:var(--disp);font-weight:700;font-size:21px;margin:14px 0 11px;letter-spacing:-.01em}
+.way p{font-size:14.5px;color:var(--tx-mut)}
+.way ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:9px}
+.way li{position:relative;padding-left:22px;font-size:13.5px;color:var(--tx)}
+.way li::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;background:var(--gold);clip-path:polygon(50% 0,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0 50%,39% 39%)}
+
+.cta{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.cta .constellation{position:absolute;right:-30px;bottom:-60px;width:min(420px,50vw);opacity:.28;color:var(--gold)}
+.cta-inner{position:relative;z-index:2;display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.cta h2{font-family:var(--disp);font-weight:800;font-size:clamp(30px,4.4vw,48px);letter-spacing:-.025em;line-height:1.03}
+.cta p{color:var(--on-d);margin-top:16px;max-width:46ch}
+.cta-actions{display:flex;flex-direction:column;gap:14px}
+.cta-actions a{border:1px solid var(--line-d);padding:18px 22px;border-radius:3px;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:.2s}
+.cta-actions a:hover{border-color:var(--gold);background:rgba(205,163,73,.06)}
+.cta-actions .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-d-mut)}
+.cta-actions .val{font-family:var(--disp);font-weight:700;font-size:17px;color:#fff;margin-top:3px}
+.cta-actions .arw{color:var(--gold);font-size:20px}
+
+footer{background:#04101c;color:var(--on-d);padding:64px 0 30px}
+.f-top{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid var(--line-d)}
+.f-brand .brand{margin-bottom:18px}
+.f-brand p{font-size:14px;max-width:38ch;color:var(--on-d-mut)}
+.f-col h5{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.f-col a{display:block;font-size:14.5px;margin-bottom:11px;color:var(--on-d);transition:color .2s}
+.f-col a:hover{color:#fff}
+.f-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-top:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--on-d-mut)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+@media(max-width:940px){
+  .menu{position:fixed;inset:74px 0 auto 0;background:var(--ink);flex-direction:column;align-items:stretch;gap:0;padding:8px 0 16px;border-bottom:1px solid var(--line-d);transform:translateY(-140%);transition:transform .3s;z-index:40}
+  .menu.open{transform:none}
+  .menu a{padding:14px 28px;border-top:1px solid var(--line-d)}
+  .menu .btn{margin:12px 28px 0;justify-content:center}
+  .navtoggle{display:block}
+  .approach .grid,.cta-inner{grid-template-columns:1fr;gap:36px}
+  .svc-grid,.steps{grid-template-columns:1fr 1fr}
+  .fit-cols,.ways-grid{grid-template-columns:1fr}
+  .hero-foot{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .wrap{padding:0 20px}
+  .svc-grid,.steps,.ways-grid{grid-template-columns:1fr}
+  .hero .constellation{display:none}
+  .brand .wm small{letter-spacing:.28em}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="mark-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#57c4ff"/>
+      <stop offset="55%" stop-color="#0d66d1"/>
+      <stop offset="100%" stop-color="#0b3c88"/>
+    </linearGradient>
+    <linearGradient id="mark-shine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.88)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.10)"/>
+    </linearGradient>
+    <g id="mark">
+      <path d="M24 14 L36 14 L60 66 L84 14 L96 14 L60 103 Z" fill="url(#mark-grad)"/>
+      <path d="M36 14 L60 66 L84 14 L60 10 Z" fill="url(#mark-shine)" opacity=".9"/>
+      <path d="M24 14 L36 14 L60 66 L48 66 Z" fill="rgba(255,255,255,.08)"/>
+      <path d="M96 14 L84 14 L60 66 L72 66 Z" fill="rgba(255,255,255,.08)"/>
+    </g>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Volio Tech home">
+      <svg viewBox="0 0 120 115"><use href="#mark"/></svg>
+      <span class="wm">VOLIO<small>TECH</small></span>
+    </a>
+    <button class="navtoggle" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="menu" id="menu">
+      <a href="#fit">The difference</a>
+      <a href="#services">What we do</a>
+      <a href="#industries">Industries</a>
+      <a href="#process">How we work</a>
+      <a href="#company">Company</a>
+      <a class="btn btn-gold" href="#contact">Request a proposal</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" style="padding:0">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <svg class="constellation" viewBox="0 0 120 115" aria-hidden="true"><use href="#mark"/></svg>
+  <div class="wrap">
+    <div class="hero-inner">
+      <span class="eyebrow on-dark">Est. 2026 · Dhaka · Working worldwide</span>
+      <h1>Software built from<br><span class="glow">what you want.</span></h1>
+      <p class="sub">Volio Tech turns ambition into elegant, dependable systems — built to fit your business, your people, and your future. Any project, any industry.</p>
+      <div class="meaning">
+        <span class="ar" lang="it">volio</span>
+        <span class="txt">Volio — <em>“I want,” “I love” in Italian. Software made with intention, care, and clarity.</em></span>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#contact">Request a proposal →</a>
+        <a class="btn btn-ghost" href="#fit">Why build custom</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="hero-foot">
+      <div><div class="k">Founded</div><div class="v">2026 · Dhaka</div></div>
+      <div><div class="k">Scope</div><div class="v">Any project, worldwide</div></div>
+      <div><div class="k">Every build</div><div class="v">Fits you — you own it</div></div>
+      <div><div class="k">Support</div><div class="v">Long-term by default</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="fit" id="fit">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">The difference</span>
+      <h2 class="h-sec">Software shaped to your business — not your business bent to the software.</h2>
+      <p class="lede">Most tools make you adapt: change how you work to fit someone else's assumptions, and pay rent on it forever. We do the opposite. We learn how your business actually runs, then build software that fits it exactly.</p>
+    </div>
+    <div class="fit-cols">
+      <article class="fit-card them reveal">
+        <div class="cap">The off-the-shelf way</div>
+        <h3>You adjust to the product.</h3>
+        <ul class="fit-list">
+          <li><span class="m">×</span> You reshape your workflow to fit the tool's assumptions.</li>
+          <li><span class="m">×</span> Subscriptions you rent indefinitely — costs never stop.</li>
+          <li><span class="m">×</span> Generic features you'll never use; gaps you can't fix.</li>
+          <li><span class="m">×</span> The vendor owns the roadmap, the code, and the lock-in.</li>
+        </ul>
+      </article>
+      <article class="fit-card us reveal">
+        <svg class="constellation" viewBox="0 0 120 115" aria-hidden="true"><use href="#mark"/></svg>
+        <div class="cap">The Volio way</div>
+        <h3>The product adjusts to you.</h3>
+        <ul class="fit-list">
+          <li><span class="m">★</span> The software fits how you already work — no forced change.</li>
+          <li><span class="m">★</span> Built once, owned outright — no perpetual rent.</li>
+          <li><span class="m">★</span> Exactly the features you need, and room to grow into.</li>
+          <li><span class="m">★</span> You own the code, the roadmap, and the advantage.</li>
+        </ul>
+      </article>
+    </div>
+    <div class="fit-note reveal">
+      <b>And when a ready-made platform genuinely fits, we'll say so</b> — then extend it to cover the rest. Honest build-or-buy advice is part of reliable engineering, not a sales pitch against it.
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">What we do</span>
+      <h2 class="h-sec">Full-lifecycle engineering,<br>held to one standard.</h2>
+      <p class="lede">From first idea to long-term maintenance — the whole build, not just the parts that are quick to demo. Web, mobile, and enterprise, for any sector.</p>
+    </div>
+    <div class="svc-grid">
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">01</div><h3>Custom software</h3><p>Web, mobile, and enterprise systems built to your exact workflow — architected for reliability, security, and change.</p></article>
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">02</div><h3>Web &amp; e-commerce</h3><p>Fast, dependable sites and storefronts — with local payment integration for Bangladesh and global gateways worldwide.</p></article>
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">03</div><h3>Enterprise &amp; ERP systems</h3><p>Business automation, MIS, and internal platforms that mirror how your organisation actually operates — end to end.</p></article>
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">04</div><h3>Integration &amp; cloud</h3><p>Connecting legacy and modern systems, and migrating workloads to the cloud with a plan for cost, continuity, and control.</p></article>
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">05</div><h3>DevOps &amp; automation</h3><p>Reliable pipelines, infrastructure-as-code, and observability so releases are predictable and problems are seen early.</p></article>
+      <article class="svc reveal"><svg class="star" viewBox="0 0 120 115"><use href="#mark"/></svg><div class="no">06</div><h3>QA, support &amp; teams</h3><p>Structured testing, maintenance that keeps systems steady, and dedicated engineers who extend your own team.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="industries" id="industries">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow on-dark">Where we work</span>
+      <h2 class="h-sec" style="color:#fff">Any industry. Any scale.</h2>
+      <p class="lede on-dark">The fit-first approach travels across sectors — because the point isn't a template, it's understanding your business. A sample of the ground we cover:</p>
+    </div>
+    <div class="ind-grid reveal">
+      <span class="ind"><span class="s"></span>Fintech &amp; payments</span>
+      <span class="ind"><span class="s"></span>E-commerce &amp; retail</span>
+      <span class="ind"><span class="s"></span>Healthcare</span>
+      <span class="ind"><span class="s"></span>Logistics &amp; supply chain</span>
+      <span class="ind"><span class="s"></span>Education</span>
+      <span class="ind"><span class="s"></span>Manufacturing &amp; RMG</span>
+      <span class="ind"><span class="s"></span>Real estate</span>
+      <span class="ind"><span class="s"></span>Government &amp; public sector</span>
+      <span class="ind"><span class="s"></span>Startups &amp; MVPs</span>
+      <span class="ind"><span class="s"></span>Media &amp; content</span>
+      <span class="ind"><span class="s"></span>NGOs &amp; social impact</span>
+    </div>
+    <p class="ind-note reveal">In Bangladesh and across the world — guided by the same thoughtful standard.</p>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">How we work</span>
+      <h2 class="h-sec">The fit starts long before the code.</h2>
+      <p class="lede">A build that fits your business can't begin with a template. It begins with understanding — then a plan you can hold us to.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n"><b>01</b></div><h4>Discovery</h4><p>We learn how your business actually runs — the workflows, the edge cases, the goals — before writing a single line.</p></div>
+      <div class="step reveal"><div class="n"><b>02</b></div><h4>Blueprint</h4><p>Architecture, scope, and a price and timeline planned backwards from delivery. No surprises baked in.</p></div>
+      <div class="step reveal"><div class="n"><b>03</b></div><h4>Build</h4><p>Engineered in the open, in steady increments you can see and steer — so it's still fitting you at the end.</p></div>
+      <div class="step reveal"><div class="n"><b>04</b></div><h4>Support</h4><p>We stay after launch — maintaining, improving, and keeping the system steady for the long term.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="approach" id="approach">
+  <div class="wrap">
+    <div class="grid">
+      <div class="sec-head reveal">
+      <span class="eyebrow on-dark">Why Volio</span>
+      <h2 class="h-sec" style="color:#fff">Reliability isn't a feature.<br>It's the whole point.</h2>
+      <p class="lede on-dark">Our name comes from Italian for <em>“I want; I love.”</em> It sets the bar for how we work — not just what we ship. Four commitments hold on every engagement.</p>
+      </div>
+      <div class="pillars reveal">
+        <div class="pillar"><div class="idx">i</div><div><h4>Reliability first</h4><p>We design for the years after launch, not the week of the demo. Dependable beats dazzling when a system has to keep running.</p></div></div>
+        <div class="pillar"><div class="idx">ii</div><div><h4>Transparent communication</h4><p>Clear scope, honest status, and no surprises. You always know where a project stands and what happens next.</p></div></div>
+        <div class="pillar"><div class="idx">iii</div><div><h4>Timeline discipline</h4><p>Commitments we can keep, and the process to keep them. A date we agree to is a date we plan backwards from.</p></div></div>
+        <div class="pillar"><div class="idx">iv</div><div><h4>You own what we build</h4><p>Cost-effective engineering held to international standards — and the code, roadmap, and advantage stay yours.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="company">
+  <svg class="constellation" viewBox="0 0 120 115" aria-hidden="true"><use href="#mark"/></svg>
+  <div class="wrap">
+    <div class="story-inner reveal">
+      <span class="eyebrow on-dark" style="justify-content:center">The name</span>
+      <div class="ar-big" lang="it" style="margin-top:22px">volio</div>
+      <p class="quote">In Italian, <b>volio</b> is tied to desire and care — the intention behind every product we build. That is what <b>Volio Tech</b> means to us: software that feels intentional, bright, and purpose-built.</p>
+      <p class="body">Our mark reflects a three-dimensional V: clarity, craft, and commitment stacked in balance. It's a reminder that the best software is both precise and human-centered, made for the way you really work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="ways">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Ways to work together</span>
+      <h2 class="h-sec">Choose the model that fits.</h2>
+    </div>
+    <div class="ways-grid">
+      <article class="way reveal">
+        <div class="cap">Model 01</div>
+        <h3>End-to-end product</h3>
+        <p>We design, build, and deliver a complete piece of software made for your business — start to finish.</p>
+        <ul><li>Clear, transparent scope and price</li><li>Ideal for defined builds and tenders</li><li>Owned outright on delivery</li></ul>
+      </article>
+      <article class="way reveal">
+        <div class="cap">Model 02</div>
+        <h3>Dedicated team</h3>
+        <p>Vetted engineers who join your team as a true extension of it — aligned to your timezone and standards.</p>
+        <ul><li>Scales up or down with your needs</li><li>Works only on your product</li><li>Cost-effective, senior talent</li></ul>
+      </article>
+      <article class="way reveal">
+        <div class="cap">Model 03</div>
+        <h3>Support &amp; maintenance</h3>
+        <p>Long-term agreements that keep systems steady, patched, and improving — long after the first release.</p>
+        <ul><li>Proactive monitoring and fixes</li><li>Ongoing improvements</li><li>Predictable, steady support</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="contact">
+  <svg class="constellation" viewBox="0 0 120 115" aria-hidden="true"><use href="#mark"/></svg>
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="reveal">
+        <span class="eyebrow on-dark">Start a conversation</span>
+        <h2 style="margin-top:16px">Tell us how your<br>business actually works.</h2>
+        <p>Wherever you are and whatever the project, send us the outline — and we'll come back with a clear, honest plan for software built to fit it.</p>
+      </div>
+      <div class="cta-actions reveal">
+        <a href="mailto:info@voliotech.com">
+          <div><div class="lbl">Email</div><div class="val">info@voliotech.com</div></div>
+          <span class="arw">→</span>
+        </a>
+        <a href="https://voliotech.com">
+          <div><div class="lbl">Web</div><div class="val">voliotech.com</div></div>
+          <span class="arw">→</span>
+        </a>
+        <a href="#top">
+          <div><div class="lbl">Based in</div><div class="val">Dhaka · Working worldwide</div></div>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand">
+        <a class="brand" href="#top" aria-label="Volio Tech">
+          <svg viewBox="0 0 120 115" style="color:var(--gold)"><use href="#mark"/></svg>
+          <span class="wm">VOLIO<small>TECH</small></span>
+        </a>
+        <p>Practical software built with care. Custom software built to fit your business — for clients in Bangladesh and around the world.</p>
+      </div>
+      <div class="f-col">
+        <h5>Navigate</h5>
+        <a href="#fit">The difference</a>
+        <a href="#services">What we do</a>
+        <a href="#industries">Industries</a>
+        <a href="#process">How we work</a>
+        <a href="#company">Company</a>
+      </div>
+      <div class="f-col">
+        <h5>Contact</h5>
+        <a href="mailto:info@voliotech.com">info@voliotech.com</a>
+        <a href="https://voliotech.com">voliotech.com</a>
+        <a href="#top">Dhaka, Bangladesh · Worldwide</a>
+      </div>
+    </div>
+    <div class="f-bot">
+      <span>© 2026 Volio Tech</span>
+      <span>volio — I want · I love · made to fit</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const tgl=document.querySelector('.navtoggle'),menu=document.getElementById('menu');
+tgl.addEventListener('click',()=>{const o=menu.classList.toggle('open');tgl.setAttribute('aria-expanded',o)});
+menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.classList.remove('open');tgl.setAttribute('aria-expanded',false)}));
+
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const c=document.getElementById('stars');if(!c)return;const ctx=c.getContext('2d');
+  let w,stars,dpr;
+  function init(){
+    dpr=Math.min(devicePixelRatio||1,2);
+    w=c.clientWidth;c.width=w*dpr;c.height=c.clientHeight*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n=Math.round(w*c.clientHeight/9000);
+    stars=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*c.clientHeight,r:Math.random()*1.3+.3,base:Math.random()*.5+.2,ph:Math.random()*Math.PI*2}));
+  }
+  function draw(t){
+    const H=c.clientHeight;ctx.clearRect(0,0,w,H);
+    for(const s of stars){
+      let a=s.base;
+      if(!reduce&&t<3200){a=s.base+Math.sin(t/380+s.ph)*.28*(1-t/3200)}
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,7);ctx.fillStyle='rgba(205,163,73,'+Math.max(.08,a)+')';ctx.fill();
+    }
+    if(!reduce&&t<3400)requestAnimationFrame(draw);
+  }
+  init();requestAnimationFrame(draw);
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{init();draw(9999)},180)});
+})();
+</script>
+</body>
+</html>
