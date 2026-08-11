@@ -1,6 +1,7 @@
 # Volio Tech
 
-Landing page for Volio Tech — a custom software brand site with a blue 3D hero, animated logo, and polished business presentation.
+Landing page for Volio Tech — a custom software brand site with a blue 3D hero,
+animated logo, and polished business presentation.
 
 ## Deploy
 This site is ready for GitHub Pages from the repository root.
