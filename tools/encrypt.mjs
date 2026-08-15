@@ -22,7 +22,9 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = resolve(ROOT, 'team.private.json');
 const OUT = resolve(ROOT, 'team.enc.json');
-const ITERATIONS = 250_000;
+// OWASP's PBKDF2-SHA256 floor. team.html reads `iter` from the payload, so
+// blobs encrypted at the old 250k still decrypt with their existing key.
+const ITERATIONS = 600_000;
 
 const MIME = {
   '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png',
@@ -35,14 +37,43 @@ const c = { dim: s => `\x1b[2m${s}\x1b[0m`, b: s => `\x1b[1m${s}\x1b[0m`,
 
 function die(msg) { console.error(`\n${c.r('✖')} ${msg}\n`); process.exit(1); }
 
-/** Readable, high-entropy key: 4 words + 4 digits (~52 bits). */
+/**
+ * Readable key: 5 words + 4 digits.
+ *
+ * The ciphertext is published to a public repo, so the key is the only thing
+ * standing between a downloaded blob and an offline brute-force. Entropy is
+ * therefore stated exactly, not estimated:
+ *
+ *   128^5 words x 10^4 digits = 2^35 x 2^13.3 = ~2^48.3
+ *
+ * WORDS.length is exactly 128 — a divisor of 2^32 — so `v % 128` draws
+ * uniformly with no modulo bias. Keep it at 128 if you edit the list.
+ */
+const WORDS = [
+  'amber','anchor','arbor','arrow','aspen','atlas','aurora','basalt',
+  'beacon','birch','bishop','bramble','bronze','canyon','cedar','cinder',
+  'citrus','clover','cobalt','comet','copper','coral','cosmos','crater',
+  'cypress','dagger','delta','denim','dune','ember','falcon','fathom',
+  'fern','flint','forge','fossil','galaxy','garnet','glacier','granite',
+  'harbor','harvest','hazel','helix','hollow','horizon','indigo','ivory',
+  'jasper','jetty','junction','juniper','kestrel','lagoon','lantern','ledger',
+  'lichen','lumen','lunar','magnet','mantle','maple','marble','meadow',
+  'meridian','mesa','meteor','midnight','mineral','monsoon','mortar','nebula',
+  'nectar','nickel','nimbus','north','oasis','obsidian','onyx','opal',
+  'orbit','orchid','osprey','outpost','oxide','pebble','pewter','pigment',
+  'pillar','pinnacle','pioneer','plateau','plume','prairie','prism','quarry',
+  'quartz','quill','radiant','rampart','raven','reef','relay','ridge',
+  'rivet','saffron','sage','sandstone','sapphire','sequoia','shale','signal',
+  'silver','slate','solstice','spruce','summit','tandem','terrace','thistle',
+  'thorn','tidal','timber','topaz','torrent','tundra','vector','zenith'
+];
+
 function makeKey() {
-  const words = ['harbor','cobalt','lantern','summit','ember','quartz','meridian','cypress',
-                 'falcon','tundra','vector','onyx','delta','pinnacle','arbor','zenith'];
+  if (WORDS.length !== 128) die(`Wordlist must be exactly 128 entries (found ${WORDS.length}).`);
   const pick = n => Array.from(crypto.getRandomValues(new Uint32Array(n)))
-    .map(v => words[v % words.length]);
+    .map(v => WORDS[v % WORDS.length]);
   const digits = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0');
-  return [...pick(3), digits].join('-');
+  return [...pick(5), digits].join('-');
 }
 
 /** Replace local image paths with data URIs so photos stay inside the ciphertext. */
