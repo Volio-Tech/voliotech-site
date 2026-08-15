@@ -1,0 +1,60 @@
+{
+  "_readme": "Copy this file to team.private.json (git-ignored) and put the real team in it. Then run: node tools/encrypt.mjs",
+
+  "org": {
+    "title": "The team behind the work.",
+    "preparedFor": "",
+    "note": "Shared in confidence for proposal review. Please do not redistribute."
+  },
+
+  "members": [
+    {
+      "name": "Ashik Rahman",
+      "role": "Founder & Principal Engineer",
+      "seniority": "Principal",
+      "years": 9,
+      "specialty": "Payment gateway integration and high-throughput backends. Leads architecture on every engagement.",
+      "skills": ["Node.js", "TypeScript", "PostgreSQL", "Next.js", "AWS"],
+      "domains": ["Fintech", "E-commerce"],
+      "education": "BSc Computer Science & Engineering, BUET",
+      "certs": ["AWS Solutions Architect – Associate"],
+      "english": "Professional working proficiency (C1)",
+      "timezone": "GMT+6 · 4h overlap with CET, 3h with GST",
+      "allocation": "Full-time",
+      "linkedin": "https://www.linkedin.com/in/example",
+      "photo": "photos/ashik.jpg"
+    },
+    {
+      "name": "Nusrat Jahan",
+      "role": "Senior Frontend Engineer",
+      "seniority": "Senior",
+      "years": 6,
+      "specialty": "Design-system work and accessible, high-performance interfaces for data-heavy admin products.",
+      "skills": ["React", "Next.js", "TypeScript", "Tailwind", "Figma"],
+      "domains": ["E-commerce", "Healthcare"],
+      "education": "BSc Computer Science, University of Dhaka",
+      "certs": [],
+      "english": "Professional working proficiency (C1)",
+      "timezone": "GMT+6",
+      "allocation": "Full-time",
+      "linkedin": "",
+      "photo": ""
+    },
+    {
+      "name": "Tanvir Hasan",
+      "role": "QA & Automation Lead",
+      "seniority": "Mid",
+      "years": 4,
+      "specialty": "Test strategy, end-to-end automation, and release gating for regulated systems.",
+      "skills": ["Playwright", "Jest", "CI/CD", "Postman"],
+      "domains": ["Fintech", "Government"],
+      "education": "BSc Software Engineering, AIUB",
+      "certs": ["ISTQB Foundation Level"],
+      "english": "Full professional proficiency (C1)",
+      "timezone": "GMT+6",
+      "allocation": "Part-time · 20 hrs/week",
+      "linkedin": "",
+      "photo": ""
+    }
+  ]
+}

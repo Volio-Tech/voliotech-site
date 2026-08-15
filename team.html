@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Team Dossier — Volio Tech</title>
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#071b33">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M6 10 L36 10 L68 106 L52 106 Z' fill='%232b9df4'/%3E%3Cpath d='M84 10 L114 10 L68 106 L52 106 Z' fill='%2377dfe8'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#071b33; --ink-2:#0c2d54; --ink-3:#04101f;
+  --sky:#38b6ff; --sky-soft:#8fe6f0; --sky-deep:#1b6fd0;
+  --paper:#F3F8FE; --paper-2:#FFFFFF;
+  --line-d:rgba(143,230,240,.16); --line-l:#dbe8f6;
+  --tx:#0f2740; --tx-mut:#51708f;
+  --on-d:#e8f4ff; --on-d-mut:#95afca;
+  --wrap:1120px;
+  --sans:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:16px;
+  --hd:66px;
+  --gut:28px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-padding-top:calc(var(--hd) + 16px);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--tx);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a,button,input{-webkit-tap-highlight-color:transparent}
+img,svg{display:block;max-width:100%}
+.wrap{
+  max-width:var(--wrap);margin:0 auto;
+  padding-left:max(var(--gut),env(safe-area-inset-left));
+  padding-right:max(var(--gut),env(safe-area-inset-right));
+}
+:focus-visible{outline:2px solid var(--sky);outline-offset:3px;border-radius:3px}
+.mono{font-family:var(--mono)}
+
+/* ---------- brand / header ---------- */
+.brand{display:inline-flex;align-items:center;gap:12px}
+.brand svg{width:30px;height:30px;flex:none}
+.brand .wm{font-weight:800;font-size:19px;letter-spacing:-.02em;line-height:1;color:#fff}
+.brand .wm i{font-style:normal;font-weight:500;color:var(--sky-soft);margin-left:3px}
+header{background:var(--ink);border-bottom:1px solid var(--line-d);position:sticky;top:0;z-index:20}
+.nav{display:flex;align-items:center;justify-content:space-between;height:var(--hd);gap:16px}
+.nav .right{display:flex;align-items:center;gap:12px}
+.tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--sky-soft);border:1px solid var(--line-d);border-radius:30px;padding:6px 13px}
+.btn{font-family:inherit;font-weight:600;font-size:14px;padding:10px 18px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-sky{background:var(--sky);color:#04182e}
+.btn-ghost{background:transparent;color:var(--on-d);border-color:var(--line-d)}
+.btn:active{transform:scale(.98)}
+
+/* ---------- lock screen ---------- */
+.lock{min-height:calc(100vh - var(--hd));min-height:calc(100dvh - var(--hd));
+  display:grid;place-items:center;
+  padding:40px max(20px,env(safe-area-inset-left)) calc(40px + env(safe-area-inset-bottom));
+  background:radial-gradient(110% 80% at 50% 0%,#1a5490 0%,var(--ink) 50%,#04121f 100%)}
+.lock-card{max-width:460px;width:100%;text-align:center;color:#fff}
+.lock-card .mk{width:56px;margin:0 auto 26px;opacity:.95}
+.lock-card h1{font-weight:800;font-size:26px;letter-spacing:-.025em;line-height:1.15}
+.lock-card p{color:var(--on-d-mut);font-size:15px;margin-top:12px}
+.lock-form{margin-top:26px;display:flex;gap:10px}
+/* 16px is deliberate: anything smaller makes iOS Safari zoom the page on focus. */
+.lock-form input{flex:1;min-width:0;font-family:var(--mono);font-size:16px;padding:13px 16px;border-radius:10px;
+  border:1px solid var(--line-d);background:rgba(255,255,255,.06);color:#fff;letter-spacing:.04em}
+.lock-form input::placeholder{color:var(--on-d-mut);letter-spacing:.02em}
+.lock-form input:focus{outline:none;border-color:var(--sky);background:rgba(56,182,255,.08)}
+.lock-msg{margin-top:16px;font-size:13.5px;min-height:20px}
+.lock-msg.err{color:#ff9a9a}
+.lock-msg.busy{color:var(--sky-soft)}
+
+/* ---------- dossier head ---------- */
+.dossier{display:none}
+.dossier.on{display:block}
+.d-head{background:linear-gradient(165deg,var(--ink-2),var(--ink));color:#fff;padding:clamp(44px,6vw,72px) 0 0}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--sky-soft);display:inline-flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:24px;height:1px;background:currentColor;opacity:.55}
+.d-head h1{font-weight:800;font-size:clamp(30px,4.6vw,48px);letter-spacing:-.03em;line-height:1.05;margin:16px 0 0}
+.d-head .for{margin-top:16px;font-size:17px;color:var(--sky-soft);font-weight:600}
+.d-head .note{margin-top:14px;font-size:14px;color:var(--on-d-mut);max-width:56ch}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:40px;border-top:1px solid var(--line-d)}
+.stats>div{padding:22px 4px 26px}   /* child combinator: must not hit .k/.v */
+.stats .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--on-d-mut)}
+.stats .v{font-weight:800;font-size:clamp(22px,3vw,30px);color:#fff;margin-top:6px;letter-spacing:-.03em;line-height:1.1}
+.stats .v small{font-size:14px;font-weight:600;color:var(--sky-soft);letter-spacing:0}
+
+/* ---------- roster ---------- */
+.roster{padding:clamp(48px,6vw,76px) 0 clamp(56px,7vw,90px)}
+.r-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:28px}
+.r-bar h2{font-weight:800;font-size:22px;letter-spacing:-.025em}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;padding:7px 14px;border-radius:30px;border:1px solid var(--line-l);background:var(--paper-2);color:var(--tx-mut);cursor:pointer;font-family:inherit;transition:.18s;white-space:nowrap}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{background:var(--paper-2);border:1px solid var(--line-l);border-radius:var(--r);padding:26px 26px 24px;transition:box-shadow .25s,border-color .25s}
+.c-top{display:flex;gap:16px;align-items:flex-start}
+.ava{width:64px;height:64px;border-radius:14px;flex:none;object-fit:cover;background:var(--ink-2);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:21px;letter-spacing:-.02em}
+.c-id{flex:1;min-width:0}
+.c-id h3{font-weight:700;font-size:18.5px;letter-spacing:-.02em;line-height:1.2}
+.c-id .role{font-size:14.5px;color:var(--sky-deep);font-weight:600;margin-top:3px}
+.c-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.pill{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:5px;background:var(--paper);border:1px solid var(--line-l);color:var(--tx-mut)}
+.pill.sen{background:#0c2d54;border-color:#0c2d54;color:#fff}
+.spec{margin-top:16px;font-size:14.5px;color:var(--tx);line-height:1.55}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag-s{font-size:12.5px;padding:5px 11px;border-radius:20px;background:rgba(56,182,255,.10);color:var(--sky-deep);font-weight:600}
+.tag-d{font-size:12.5px;padding:5px 11px;border-radius:20px;background:var(--paper);border:1px solid var(--line-l);color:var(--tx-mut)}
+.rows{margin-top:18px;border-top:1px solid var(--line-l);padding-top:14px;display:grid;gap:9px}
+.row{display:grid;grid-template-columns:104px 1fr;gap:12px;font-size:13.4px;align-items:baseline}
+.row dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--tx-mut)}
+.row dd{color:var(--tx)}
+.c-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line-l);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.alloc{font-size:13px;font-weight:700;color:var(--tx)}
+.alloc span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-mut);font-weight:500}
+.li-link{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--sky-deep);min-height:44px;padding-left:4px}
+.li-link svg{width:15px;height:15px;fill:currentColor}
+
+/* hover only where a real pointer exists — otherwise taps leave cards stuck */
+@media (hover:hover) and (pointer:fine){
+  .btn-sky:hover{background:var(--sky-soft)}
+  .btn-ghost:hover{border-color:var(--sky);color:var(--sky)}
+  .chip:hover{border-color:#bcd8f2;color:var(--tx)}
+  .card:hover{box-shadow:0 20px 50px rgba(15,39,64,.09);border-color:#bcd8f2}
+  .li-link:hover{color:var(--ink)}
+}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink-3);color:var(--on-d-mut);padding:34px 0;font-size:13px}
+.f-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center}
+.f-in .conf{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sky-soft)}
+
+@media(max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .d-head .note{font-size:13.5px}
+  .stats{margin-top:30px}
+  .stats>div{padding:18px 4px 20px}
+  .r-bar{margin-bottom:20px;gap:14px}
+
+  /* filters scroll sideways instead of stacking into a tall block */
+  .filters{
+    flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    scroll-snap-type:x proximity;
+    width:100%;padding-bottom:2px;
+  }
+  .filters::-webkit-scrollbar{display:none}
+  .chip{flex:none;scroll-snap-align:start;padding:9px 15px}
+
+  .card{padding:22px 20px 20px}
+  .c-top{gap:13px}
+  .ava{width:56px;height:56px;border-radius:12px;font-size:19px}
+  .c-id h3{font-size:17.5px}
+  .c-id .role{font-size:14px}
+  .spec{font-size:14px;margin-top:14px}
+  .rows{margin-top:15px}
+  .c-foot{flex-wrap:wrap;gap:6px 12px}
+}
+@media(max-width:560px){
+  :root{--gut:20px}
+  .nav .tag{display:none}
+  .row{grid-template-columns:1fr;gap:2px}
+  .lock-form{flex-direction:column}
+  .lock-form .btn{min-height:52px;justify-content:center;font-size:16px}
+  .lock-card h1{font-size:23px}
+  footer{padding:30px 0 calc(30px + env(safe-area-inset-bottom))}
+  .f-in{flex-direction:column;align-items:flex-start;gap:8px}
+}
+
+/* ---------- print / PDF ---------- */
+@media print{
+  @page{margin:14mm}
+  header,footer,.filters,.btn,.lock{display:none!important}
+  body{background:#fff;font-size:11pt}
+  .d-head{background:#fff!important;color:#000;padding:0 0 8mm;border-bottom:2px solid #0c2d54}
+  .d-head h1{color:#0c2d54;font-size:22pt}
+  .d-head .for{color:#0f2740}
+  .d-head .note{color:#51708f}
+  .eyebrow{color:#1b6fd0}
+  .stats{border-color:#dbe8f6;margin-top:6mm}
+  .stats .v{color:#0c2d54;font-size:16pt}
+  .stats .k{color:#51708f}
+  .roster{padding:6mm 0 0}
+  .r-bar h2{font-size:13pt}
+  .grid{gap:5mm}
+  .card{break-inside:avoid;page-break-inside:avoid;box-shadow:none;border-color:#c9dcf0}
+  .card:hover{box-shadow:none}
+  .ava{background:#0c2d54!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pill.sen{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tag-s{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="v-left" x1="0" y1="0" x2=".9" y2="1">
+    <stop offset="0%" stop-color="#5cc8ff"/><stop offset="100%" stop-color="#1b6fd0"/>
+  </linearGradient>
+  <linearGradient id="v-right" x1="1" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#9df0f5"/><stop offset="100%" stop-color="#2b9df4"/>
+  </linearGradient>
+  <linearGradient id="v-fold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1a63c0"/><stop offset="100%" stop-color="#0b3a86"/>
+  </linearGradient>
+  <g id="mark">
+    <path d="M6 10 L36 10 L68 106 L52 106 Z" fill="url(#v-left)"/>
+    <path d="M84 10 L114 10 L68 106 L52 106 Z" fill="url(#v-right)"/>
+    <path d="M60 82 L68 106 L52 106 Z" fill="url(#v-fold)"/>
+    <path d="M6 10 L19 10 L57 106 L52 106 Z" fill="#fff" opacity=".14"/>
+    <path d="M84 10 L92 10 L60 106 L52 106 Z" fill="#fff" opacity=".13"/>
+  </g>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="./index.html" aria-label="Volio Tech">
+      <svg viewBox="0 0 120 116"><use href="#mark"/></svg>
+      <span class="wm">Volio<i>Tech</i></span>
+    </a>
+    <div class="right">
+      <span class="tag">Confidential · Team dossier</span>
+      <button class="btn btn-ghost" id="printBtn" hidden>Save as PDF</button>
+    </div>
+  </div>
+</header>
+
+<!-- LOCKED -->
+<section class="lock" id="lock">
+  <div class="lock-card">
+    <svg class="mk" viewBox="0 0 120 116" aria-hidden="true"><use href="#mark"/></svg>
+    <h1>This dossier is private.</h1>
+    <p>Open the link exactly as it was sent to you, or enter the access key below.</p>
+    <form class="lock-form" id="lockForm">
+      <input id="keyInput" type="password" placeholder="Access key" autocomplete="off"
+             spellcheck="false" aria-label="Access key">
+      <button class="btn btn-sky" type="submit">Unlock</button>
+    </form>
+    <div class="lock-msg" id="lockMsg" role="status" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- UNLOCKED -->
+<div class="dossier" id="dossier">
+  <section class="d-head">
+    <div class="wrap">
+      <span class="eyebrow">Team dossier</span>
+      <h1 id="dTitle">The team behind the work.</h1>
+      <div class="for" id="dFor" hidden></div>
+      <p class="note" id="dNote"></p>
+      <div class="stats" id="dStats"></div>
+    </div>
+  </section>
+
+  <section class="roster">
+    <div class="wrap">
+      <div class="r-bar">
+        <h2>Roster</h2>
+        <div class="filters" id="dFilters"></div>
+      </div>
+      <div class="grid" id="dGrid"></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap f-in">
+    <span>© 2026 Volio Tech · Dhaka, Bangladesh</span>
+    <span class="conf">Confidential — not for redistribution</span>
+  </div>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+   Volio Tech — encrypted team dossier
+   The roster ships as AES-GCM ciphertext (team.enc.json). The key never
+   touches a server: it is read from the URL fragment (#k=...), which
+   browsers do not send in requests, Referer headers, or server logs.
+------------------------------------------------------------------- */
+const $ = s => document.querySelector(s);
+const lock = $('#lock'), lockMsg = $('#lockMsg'), dossier = $('#dossier');
+
+const b64toBytes = b => Uint8Array.from(atob(b), c => c.charCodeAt(0));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c =>
+  ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function decrypt(payload, pass){
+  const salt = b64toBytes(payload.salt), iv = b64toBytes(payload.iv), ct = b64toBytes(payload.ct);
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass),
+    'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    {name:'PBKDF2', salt, iterations: payload.iter || 250000, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const plain = await crypto.subtle.decrypt({name:'AES-GCM', iv}, key, ct);
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+/* ---------- rendering ---------- */
+const initials = n => n.trim().split(/\s+/).slice(0,2).map(w => w[0]).join('').toUpperCase();
+
+function avatar(m){
+  if (m.photo) return `<img class="ava" src="${esc(m.photo)}" alt="${esc(m.name)}">`;
+  const hues = ['#0c2d54','#1b6fd0','#12406f','#2b6ea8','#0f3a63'];
+  const h = hues[[...m.name].reduce((a,c) => a + c.charCodeAt(0), 0) % hues.length];
+  return `<div class="ava" style="background:${h}" aria-hidden="true">${esc(initials(m.name))}</div>`;
+}
+
+const LI = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95C21.4 8.75 22 11.2 22 14.1V21h-4v-6.1c0-1.45-.03-3.3-2.03-3.3-2.03 0-2.34 1.57-2.34 3.2V21h-4V9z"/></svg>`;
+
+function row(label, val){
+  if (!val || (Array.isArray(val) && !val.length)) return '';
+  return `<div class="row"><dt>${esc(label)}</dt><dd>${esc(Array.isArray(val) ? val.join(' · ') : val)}</dd></div>`;
+}
+
+function card(m){
+  return `<article class="card" data-domains="${esc((m.domains||[]).join('|'))}">
+    <div class="c-top">
+      ${avatar(m)}
+      <div class="c-id">
+        <h3>${esc(m.name)}</h3>
+        <div class="role">${esc(m.role)}</div>
+        <div class="c-meta">
+          ${m.seniority ? `<span class="pill sen">${esc(m.seniority)}</span>` : ''}
+          ${m.years ? `<span class="pill">${esc(m.years)} yrs exp</span>` : ''}
+        </div>
+      </div>
+    </div>
+    ${m.specialty ? `<p class="spec">${esc(m.specialty)}</p>` : ''}
+    ${(m.skills||[]).length ? `<div class="tags">${m.skills.map(s => `<span class="tag-s">${esc(s)}</span>`).join('')}</div>` : ''}
+    ${(m.domains||[]).length ? `<div class="tags">${m.domains.map(d => `<span class="tag-d">${esc(d)}</span>`).join('')}</div>` : ''}
+    <dl class="rows">
+      ${row('Education', m.education)}
+      ${row('Certified', m.certs)}
+      ${row('English', m.english)}
+      ${row('Timezone', m.timezone)}
+    </dl>
+    <div class="c-foot">
+      <div class="alloc"><span>Availability</span>${esc(m.allocation || 'On request')}</div>
+      ${m.linkedin ? `<a class="li-link" href="${esc(m.linkedin)}" target="_blank" rel="noopener">${LI} LinkedIn</a>` : ''}
+    </div>
+  </article>`;
+}
+
+function render(data){
+  const org = data.org || {}, members = data.members || [];
+
+  if (org.title) $('#dTitle').textContent = org.title;
+  if (org.preparedFor){
+    const el = $('#dFor');
+    el.textContent = `Prepared for ${org.preparedFor}`;
+    el.hidden = false;
+  }
+  $('#dNote').textContent = org.note ||
+    'Shared in confidence for proposal review. Please do not redistribute.';
+
+  const totalYears = members.reduce((a, m) => a + (Number(m.years) || 0), 0);
+  const roles = new Set(members.map(m => m.role).filter(Boolean));
+  const domains = [...new Set(members.flatMap(m => m.domains || []))].sort();
+
+  $('#dStats').innerHTML = [
+    ['Team size', `${members.length}<small> people</small>`],
+    ['Combined experience', `${totalYears}<small> years</small>`],
+    ['Disciplines', `${roles.size}`],
+    ['Industries served', `${domains.length}`]
+  ].map(([k, v]) => `<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+
+  $('#dGrid').innerHTML = members.map(card).join('');
+
+  if (domains.length > 1){
+    $('#dFilters').innerHTML =
+      `<button class="chip on" data-f="*">All</button>` +
+      domains.map(d => `<button class="chip" data-f="${esc(d)}">${esc(d)}</button>`).join('');
+    $('#dFilters').addEventListener('click', e => {
+      const b = e.target.closest('.chip'); if (!b) return;
+      $('#dFilters').querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === b));
+      const f = b.dataset.f;
+      $('#dGrid').querySelectorAll('.card').forEach(c => {
+        c.style.display = (f === '*' || c.dataset.domains.split('|').includes(f)) ? '' : 'none';
+      });
+    });
+  }
+
+  document.title = org.preparedFor
+    ? `Team Dossier for ${org.preparedFor} — Volio Tech`
+    : 'Team Dossier — Volio Tech';
+
+  lock.style.display = 'none';
+  dossier.classList.add('on');
+  $('#printBtn').hidden = false;
+}
+
+/* ---------- unlock flow ---------- */
+let payload = null;
+
+async function loadPayload(){
+  if (payload) return payload;
+  const res = await fetch('./team.enc.json', {cache:'no-store'});
+  if (!res.ok) throw new Error('missing');
+  payload = await res.json();
+  return payload;
+}
+
+async function tryKey(pass, fromLink){
+  if (!pass) return false;
+  lockMsg.className = 'lock-msg busy';
+  lockMsg.textContent = 'Unlocking…';
+  try {
+    const data = await decrypt(await loadPayload(), pass);
+    render(data);
+    // Strip the key from the address bar once used, so screenshots and
+    // shoulder-surfing don't leak it.
+    history.replaceState(null, '', location.pathname);
+    return true;
+  } catch (err) {
+    lockMsg.className = 'lock-msg err';
+    lockMsg.textContent = err.message === 'missing'
+      ? 'Roster data not found. Run the encrypt script to generate team.enc.json.'
+      : (fromLink ? 'That link’s access key is not valid. Enter it manually below.'
+                  : 'Incorrect access key.');
+    return false;
+  }
+}
+
+$('#lockForm').addEventListener('submit', e => {
+  e.preventDefault();
+  tryKey($('#keyInput').value.trim(), false);
+});
+$('#printBtn').addEventListener('click', () => window.print());
+
+// Key from the URL fragment: #k=... (or a bare #...)
+(function(){
+  const raw = decodeURIComponent(location.hash.slice(1));
+  if (!raw) return;
+  const k = raw.startsWith('k=') ? raw.slice(2) : raw;
+  tryKey(k, true);
+})();
+</script>
+</body>
+</html>

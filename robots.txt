@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /$
+Allow: /index.html
+Disallow: /team.html
+Disallow: /team.enc.json
+
+Sitemap: https://voliotech.com/sitemap.xml

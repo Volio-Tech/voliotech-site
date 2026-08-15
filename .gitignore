@@ -1,0 +1,17 @@
+# ---------------------------------------------------------------
+# NEVER COMMIT THESE. This is a PUBLIC repository.
+# Anything committed here is world-readable, permanently, even
+# after deletion — git history keeps it.
+# ---------------------------------------------------------------
+
+# Real team data (names, contacts, CV details) — plaintext
+team.private.json
+
+# Employee photos — inlined into the encrypted blob by tools/encrypt.mjs,
+# so the raw files must never be published on their own.
+photos/
+
+# Local noise
+.DS_Store
+node_modules/
+*.log
